@@ -109,6 +109,10 @@ jobs:
           limit-access-to-actor: true
 ```
 
+## Support
+
+If tmtv is useful to you, [buy me a coffee](https://buymeacoffee.com/lejo).
+
 ## License
 
 ISC — same as [tmtv](https://github.com/sa3lej/tmtv).
