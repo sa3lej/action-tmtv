@@ -1,0 +1,43 @@
+name: 'tmtv — Debug with SSH'
+description: 'SSH into your CI runner for interactive debugging. Drop-in replacement for action-tmate.'
+author: 'Lars-Erik Jonsson (SA3LEJ)'
+
+branding:
+  icon: 'terminal'
+  color: 'blue'
+
+inputs:
+  limit-access-to-actor:
+    description: 'Only allow the GitHub actor to connect (uses their public SSH keys)'
+    required: false
+    default: 'false'
+  timeout-minutes:
+    description: 'Minutes to wait before giving up (default: 30)'
+    required: false
+    default: '30'
+  server-host:
+    description: 'tmtv server host (default: tmtv.se)'
+    required: false
+    default: 'tmtv.se'
+  server-port:
+    description: 'tmtv server SSH port (default: 22)'
+    required: false
+    default: '22'
+  install-url:
+    description: 'URL to install script (default: https://tmtv.se/install.sh)'
+    required: false
+    default: 'https://tmtv.se/install.sh'
+
+runs:
+  using: 'composite'
+  steps:
+    - shell: bash
+      run: ${{ github.action_path }}/entrypoint.sh
+      env:
+        INPUT_LIMIT_ACCESS_TO_ACTOR: ${{ inputs.limit-access-to-actor }}
+        INPUT_TIMEOUT_MINUTES: ${{ inputs.timeout-minutes }}
+        INPUT_SERVER_HOST: ${{ inputs.server-host }}
+        INPUT_SERVER_PORT: ${{ inputs.server-port }}
+        INPUT_INSTALL_URL: ${{ inputs.install-url }}
+        GITHUB_ACTOR: ${{ github.actor }}
+        GITHUB_TOKEN: ${{ github.token }}
